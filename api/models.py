@@ -64,3 +64,22 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Vote(models.Model):
+    """
+    Vote Model
+
+    Args:
+        models (Vote): Vote Entity ORM definition
+
+    Returns:
+        Vote: Vote Obj
+    """
+
+    opinion = models.BooleanField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
+    updated_at = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return self.opinion
