@@ -1,9 +1,9 @@
 """
 models definitions
 """
-from datetime import timedelta
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Agenda(models.Model):
@@ -39,7 +39,7 @@ class Session(models.Model):
     """
 
     begin = models.DateTimeField(null=False)
-    duration = models.DurationField(null=False, default=timedelta(minutes=1))
+    end = models.DateTimeField(null=False, default=timezone.now()+timezone.timedelta(minutes=1))
     agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, default=None)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
@@ -47,10 +47,12 @@ class Session(models.Model):
 
     def __str__(self):
         id_str = str(self.id)
+        agenda_str = str(self.agenda)
         begin_str = self.begin.strftime('%d/%m/%Y %H:%M')
-        duration_str = self.duration
+        end_str = self.end.strftime('%d/%m/%Y %H:%M')
 
-        return  "{} - {} - {}".format(id_str, begin_str, duration_str)
+        return  "Agenda {} - Sessão {} - de {} até {}"\
+            .format(agenda_str, id_str, begin_str, end_str)
 
 
 class User(models.Model):

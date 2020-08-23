@@ -1,7 +1,9 @@
 """
 serializers definitions
 """
+from django.utils import timezone
 from rest_framework import serializers
+from rest_framework.response import Response
 from rest_framework.validators import UniqueTogetherValidator
 
 from api.models import Agenda, Session, User, Vote
@@ -29,7 +31,7 @@ class SessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Session
-        fields = ('id','begin', 'duration', 'agenda')
+        fields = ('id','begin', 'end', 'agenda')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,10 +57,22 @@ class VoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('id','opinion', 'session', 'user')
+        fields = ('id','opinion', 'session', 'user', 'created_at')
         validators = [
             UniqueTogetherValidator(
                 queryset=Vote.objects.all(),
                 fields=['session', 'user']
             )
         ]
+
+    # def create(self, validated_data):
+    #     if self.is_valid():
+    #         # session = Session.objects.get(id=int(self['session'].value))
+
+    #         now = timezone.now()
+
+    #         if now:
+    #             vote = Vote.objects.create(**validated_data)
+    #             return vote
+    #         else:
+    #             return Response(406)
