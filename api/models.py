@@ -40,6 +40,7 @@ class Session(models.Model):
     duration = models.DurationField(null=False, default=timedelta(minutes=1))
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.begin
