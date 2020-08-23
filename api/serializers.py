@@ -1,12 +1,18 @@
 """
 serializers definitions
 """
+import requests
+
+
 from django.utils import timezone
 from rest_framework import serializers
-from rest_framework.exceptions import NotAcceptable
+from rest_framework.exceptions import NotAcceptable, ValidationError
 from rest_framework.validators import UniqueTogetherValidator
 
 from api.models import Agenda, Session, User, Vote
+
+# constants
+CPF_VALIDADE_URL = 'https://user-info.herokuapp.com/users/'
 
 class AgendaSerializer(serializers.ModelSerializer):
     """
@@ -45,6 +51,28 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','name', 'cpf', 'email')
+
+    def create(self, validated_data):
+        if self.is_valid():
+            try:
+                cpf = str(self['cpf'].value).zfill(11)
+                response = requests.get(CPF_VALIDADE_URL + cpf)
+
+                if response.status_code in range(200, 299):
+                    status = response.json()
+
+                    if status['status'] != 'UNABLE_TO_VOTE':
+                        user = User.objects.create(**validated_data)
+                        return user
+                    else:
+                        raise NotAcceptable(detail="CPF unable to vote")
+
+                else:
+                    raise NotAcceptable(detail="CPF invalid")
+
+            except requests.exceptions.RequestException:
+                return ValidationError(detail='Validate CPF service unavailable', code=503)
+
 
 
 class VoteSerializer(serializers.ModelSerializer):
