@@ -36,7 +36,7 @@ class Session(models.Model):
         Session: Session Obj
     """
 
-    begin = models.DateField(null=False)
+    begin = models.DateTimeField(null=False)
     duration = models.DurationField(null=False, default=timedelta(minutes=1))
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
