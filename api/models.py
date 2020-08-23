@@ -88,5 +88,10 @@ class Vote(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['session', 'user'], name='unique vote for session user')
+        ]
+
     def __str__(self):
         return str(self.id)

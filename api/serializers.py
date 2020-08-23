@@ -2,6 +2,7 @@
 serializers definitions
 """
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from api.models import Agenda, Session, User, Vote
 
@@ -55,3 +56,9 @@ class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
         fields = ('id','opinion', 'session', 'user')
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Vote.objects.all(),
+                fields=['session', 'user']
+            )
+        ]
