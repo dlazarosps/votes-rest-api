@@ -83,6 +83,7 @@ class Vote(models.Model):
 
     opinion = models.BooleanField(null=False)
     session = models.ForeignKey(Session, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
