@@ -28,7 +28,7 @@ class SessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Session
-        fields = ('id','begin', 'duration')
+        fields = ('id','begin', 'duration', 'agenda')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id','name', 'cpf')
+        fields = ('id','name', 'cpf', 'email')
 
 
 class VoteSerializer(serializers.ModelSerializer):
@@ -54,4 +54,4 @@ class VoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('id','name', 'cpf')
+        fields = ('id','name', 'cpf', 'session')
