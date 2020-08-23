@@ -45,7 +45,7 @@ class Session(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
-        return self.begin
+        return str(self.id)
 
 
 class User(models.Model):
@@ -88,4 +88,4 @@ class Vote(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
-        return self.opinion
+        return str(self.id)
