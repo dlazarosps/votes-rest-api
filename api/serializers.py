@@ -7,7 +7,7 @@ import requests
 from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.exceptions import NotAcceptable, ValidationError
-from rest_framework.validators import UniqueTogetherValidator
+from rest_framework.validators import UniqueTogetherValidator, UniqueValidator
 
 from api.models import Agenda, Session, User, Vote
 
@@ -47,10 +47,12 @@ class UserSerializer(serializers.ModelSerializer):
     Args:
         serializers (User): Serialization of User Entities
     """
+    cpf = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all())])
 
     class Meta:
         model = User
         fields = ('id','name', 'cpf', 'email')
+        
 
     def create(self, validated_data):
         if self.is_valid():

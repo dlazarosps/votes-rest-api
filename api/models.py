@@ -73,6 +73,10 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['cpf'], name='unique CPF in database')
+        ]
     def __str__(self):
         return self.name
 
