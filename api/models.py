@@ -51,8 +51,8 @@ class Session(models.Model):
         begin_str = self.begin.strftime('%d/%m/%Y %H:%M')
         end_str = self.end.strftime('%d/%m/%Y %H:%M')
 
-        return  "Agenda {} - Sessão {} - de {} até {}"\
-            .format(agenda_str, id_str, begin_str, end_str)
+        return  "{} - Agenda {} - de {} até {}"\
+            .format(id_str, agenda_str, begin_str, end_str)
 
 
 class User(models.Model):

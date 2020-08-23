@@ -3,7 +3,7 @@ serializers definitions
 """
 from django.utils import timezone
 from rest_framework import serializers
-from rest_framework.response import Response
+from rest_framework.exceptions import NotAcceptable
 from rest_framework.validators import UniqueTogetherValidator
 
 from api.models import Agenda, Session, User, Vote
@@ -57,7 +57,7 @@ class VoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ('id','opinion', 'session', 'user', 'created_at')
+        fields = ('id','opinion', 'session', 'user')
         validators = [
             UniqueTogetherValidator(
                 queryset=Vote.objects.all(),
@@ -65,14 +65,17 @@ class VoteSerializer(serializers.ModelSerializer):
             )
         ]
 
-    # def create(self, validated_data):
-    #     if self.is_valid():
-    #         # session = Session.objects.get(id=int(self['session'].value))
+    def create(self, validated_data):
+        if self.is_valid():
+            session = Session.objects.get(id=int(self['session'].value))
 
-    #         now = timezone.now()
+            now = timezone.now()
 
-    #         if now:
-    #             vote = Vote.objects.create(**validated_data)
-    #             return vote
-    #         else:
-    #             return Response(406)
+            print(session.begin, session.end, now)
+            print(now < session.begin, now > session.end, (now < session.begin or now > session.end))
+
+            if now < session.begin or now > session.end:
+                raise NotAcceptable(detail="Vote outside of session time")
+            else:
+                vote = Vote.objects.create(**validated_data)
+                return vote
