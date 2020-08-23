@@ -46,7 +46,11 @@ class Session(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
-        return str(self.id)
+        id_str = str(self.id)
+        begin_str = self.begin.strftime('%d/%m/%Y %H:%M')
+        duration_str = self.duration
+
+        return  "{} - {} - {}".format(id_str, begin_str, duration_str)
 
 
 class User(models.Model):
