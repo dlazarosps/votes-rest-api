@@ -18,6 +18,7 @@ class Agenda(models.Model):
     """
 
     title = models.CharField(max_length=255)
+
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
@@ -38,9 +39,10 @@ class Session(models.Model):
 
     begin = models.DateTimeField(null=False)
     duration = models.DurationField(null=False, default=timedelta(minutes=1))
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, default=None)
+
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
-    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.begin
@@ -60,6 +62,7 @@ class User(models.Model):
     name = models.CharField(max_length=255, null=False)
     email = models.EmailField(max_length=254, null=False)
     cpf = models.IntegerField(validators=[RegexValidator(r'^\d{1,11}$')])
+
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
@@ -79,6 +82,8 @@ class Vote(models.Model):
     """
 
     opinion = models.BooleanField(null=False)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, default=None)
+
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
 
