@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 from api.api import AgendaViewSet, SessionViewSet, UserViewSet, VoteViewSet
 
-router = routers.DefaultRouter(trailing_slash=False)
+router = routers.DefaultRouter()
 router.register(r'agendas', AgendaViewSet)
 router.register(r'sessions', SessionViewSet)
 router.register(r'users', UserViewSet)
