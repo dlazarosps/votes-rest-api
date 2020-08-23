@@ -17,6 +17,21 @@ source venv/bin/activate
 pip install -r requeriments.txt
 ```
 
+### Docker
+
+#### Prerequisites
+- docker
+    - <code> sudo apt-get install docker-ce docker-ce-cli containerd.io </code>
+- docker-compose
+    - <code> sudo apt install docker-compose </code>
+
+#### Run
+```
+docker build
+docker-compose up -d
+```
+
+
 ## Django superuser
 - User = adminroot
 - Pass = 123toornimda
