@@ -2,6 +2,7 @@
 models definitions
 """
 from datetime import timedelta
+from django.core.validators import RegexValidator
 from django.db import models
 
 # Create your models here.
@@ -42,3 +43,24 @@ class Session(models.Model):
 
     def __str__(self):
         return self.begin
+
+
+class User(models.Model):
+    """
+    User Model
+
+    Args:
+        models (User): User Entity ORM definition
+
+    Returns:
+        User: User Obj
+    """
+
+    name = models.CharField(max_length=255, null=False)
+    email = models.EmailField(max_length=254, null=False)
+    cpf = models.IntegerField(validators=[RegexValidator(r'^\d{1,11}$')])
+    created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
+    updated_at = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return self.name

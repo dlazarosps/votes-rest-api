@@ -3,7 +3,7 @@ serializers definitions
 """
 from rest_framework import serializers
 
-from api.models import Agenda, Session
+from api.models import Agenda, Session, User
 
 class AgendaSerializer(serializers.ModelSerializer):
     """
@@ -29,3 +29,16 @@ class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = ('id','begin', 'duration')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    User Serializer
+
+    Args:
+        serializers (User): Serialization of User Entities
+    """
+
+    class Meta:
+        model = User
+        fields = ('id','name', 'cpf')
