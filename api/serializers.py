@@ -71,9 +71,6 @@ class VoteSerializer(serializers.ModelSerializer):
 
             now = timezone.now()
 
-            print(session.begin, session.end, now)
-            print(now < session.begin, now > session.end, (now < session.begin or now > session.end))
-
             if now < session.begin or now > session.end:
                 raise NotAcceptable(detail="Vote outside of session time")
             else:
