@@ -16,7 +16,7 @@ class AgendaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Agenda
-        fields = ('id','title')
+        fields = ('id','title', 'description')
 
 
 class SessionSerializer(serializers.ModelSerializer):

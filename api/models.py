@@ -18,6 +18,7 @@ class Agenda(models.Model):
     """
 
     title = models.CharField(max_length=255)
+    description = models.TextField(null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, null=False)
