@@ -52,7 +52,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','name', 'cpf', 'email')
-        
 
     def create(self, validated_data):
         if self.is_valid():
