@@ -20,6 +20,7 @@ from api.api import AgendaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'agendas', AgendaViewSet)
+router.register(r'sessions', AgendaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

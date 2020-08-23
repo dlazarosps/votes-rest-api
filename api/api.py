@@ -3,8 +3,8 @@ viewsets definitions
 """
 from rest_framework import viewsets
 
-from api.models import Agenda
-from api.serializers import AgendaSerializer
+from api.models import Agenda, Session
+from api.serializers import AgendaSerializer, SessionSerializer
 
 class AgendaViewSet(viewsets.ModelViewSet):
     """
@@ -16,3 +16,15 @@ class AgendaViewSet(viewsets.ModelViewSet):
 
     serializer_class = AgendaSerializer
     queryset = Agenda.objects.all()
+
+
+class SessionViewSet(viewsets.ModelViewSet):
+    """
+    Session Model Viewset (resource / controller)
+
+    Args:
+        viewsets (Session): as_view
+    """
+
+    serializer_class = SessionSerializer
+    queryset = Session.objects.all()
