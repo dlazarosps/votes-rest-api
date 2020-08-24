@@ -1,0 +1,1 @@
+web: gunicorn votes_rest_api.wsgi
