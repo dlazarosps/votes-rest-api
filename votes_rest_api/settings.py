@@ -18,10 +18,7 @@ from environ import Env
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = Env()
-try:
-    env.read_env(os.path.join(BASE_DIR, '.env'))
-except:
-    pass
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
