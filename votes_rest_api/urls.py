@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers
 from api.api import AgendaViewSet, SessionViewSet, UserViewSet, VoteViewSet
 
@@ -27,4 +29,4 @@ router.register(r'votes', VoteViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v0/', include(router.urls))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
