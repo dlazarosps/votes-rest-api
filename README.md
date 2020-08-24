@@ -41,4 +41,4 @@ docker-compose up -d
 [SERVER_NAME]:[PORT] /api/ [VERSION] / [SERVICE]
 ```
 - Example = localhost:8000/api/v0/agendas/
-- Heroku Demo = https://sleepy-anchorage-51645.herokuapp.com/ 
+- Heroku Demo = https://sleepy-anchorage-51645.herokuapp.com/api/v0/ 
