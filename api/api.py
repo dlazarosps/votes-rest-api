@@ -2,6 +2,8 @@
 viewsets definitions
 """
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from api.models import Agenda, Session, User, Vote
 from api.serializers import AgendaSerializer, SessionSerializer, UserSerializer, VoteSerializer
@@ -28,6 +30,20 @@ class SessionViewSet(viewsets.ModelViewSet):
 
     serializer_class = SessionSerializer
     queryset = Session.objects.all()
+
+    @action(methods=['get'], detail=True)
+    def count(self, request, pk=None):
+        """
+        Count Opinios of Session
+
+        Return:
+            Count of votes
+        """
+        votes_yes = Vote.objects.filter(session_id=pk, opinion=1).count()
+        votes_no = Vote.objects.filter(session_id=pk, opinion=0).count()
+        content = {'yes': votes_yes, 'no': votes_no}
+        return Response(content)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
