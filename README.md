@@ -105,3 +105,11 @@ docker-compose up -d
 ```
 - Example = localhost:8000/api/v0/agendas/
 - Heroku Demo = https://sleepy-anchorage-51645.herokuapp.com/api/v0/ 
+- GET count
+    - /api/v0/sessions/1/count/
+     ``` 
+        {
+            "yes": 1,
+            "no": 1
+        }
+    ``` 
