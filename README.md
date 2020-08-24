@@ -90,7 +90,8 @@ python manage.py runserver
 
 #### Run
 ```
-docker build
+cp .env.example .env
+docker-compose build
 docker-compose up -d
 ```
 
@@ -113,3 +114,7 @@ docker-compose up -d
             "no": 1
         }
     ``` 
+
+## Swagger documentation 
+- ONLINE https://sleepy-anchorage-51645.herokuapp.com/swagger/
+- OFFLINE localhost:8000/swagger/
